@@ -1,1321 +1,254 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinguaConvert AI — Vende en cada región del mundo</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Fraunces:ital,opsz,wght@1,9..144,300&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 630px; overflow: hidden; background: #060810; }
 
-:root {
-  --bg: #060810;
-  --bg2: #0c0f1a;
-  --surface: #111520;
-  --surface2: #161b2e;
-  --border: rgba(255,255,255,0.07);
-  --text: #eef0f8;
-  --muted: #6b7394;
-  --accent: #f0c040;
-  --accent2: #38d9b4;
-  --accent3: #e05060;
-  --blue: #4a80f5;
-  --glow: rgba(240,192,64,0.15);
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Mono', monospace;
-  font-size: 15px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* =================== NOISE OVERLAY =================== */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: screen;
-}
-
-/* =================== NAV =================== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.2rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(6,8,16,0.7);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text);
-}
-
-.nav-logo span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--text); }
-
-.nav-cta {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 0.55rem 1.3rem;
-  border-radius: 3px;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: 'DM Mono', monospace;
-  font-weight: 400;
-  cursor: pointer;
-  border: none;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
-
-/* =================== HERO =================== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 8rem 2rem 5rem;
+.card {
+  width: 1200px;
+  height: 630px;
+  background: #060810;
   position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 90px;
+  gap: 80px;
   overflow: hidden;
 }
 
-/* Grid background */
-.hero::before {
+/* Grid bg */
+.card::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 90% at 30% 50%, black 30%, transparent 100%);
 }
 
-/* Glow orbs */
-.hero::after {
-  content: '';
+/* Glow */
+.glow {
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 700px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(240,192,64,0.08) 0%, transparent 70%);
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(240,192,64,0.12) 0%, transparent 65%);
   pointer-events: none;
 }
 
-.hero-badge {
+.left {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  background: rgba(240,192,64,0.1);
-  border: 1px solid rgba(240,192,64,0.25);
-  padding: 0.45rem 1rem;
+  gap: 8px;
+  background: rgba(240,192,64,0.12);
+  border: 1px solid rgba(240,192,64,0.3);
+  padding: 7px 16px;
   border-radius: 100px;
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: #f0c040;
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
-  animation: fadeUp 0.6s ease both;
+  margin-bottom: 28px;
 }
 
-.hero-badge .pulse {
-  width: 6px; height: 6px;
+.dot {
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s ease-in-out infinite;
+  background: #f0c040;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
-}
-
-.hero-title {
+h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: 78px;
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 0.93;
   letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
-  animation: fadeUp 0.6s ease 0.1s both;
+  color: #eef0f8;
+  margin-bottom: 24px;
 }
 
-.hero-title .line-italic {
+h1 em {
   font-family: 'Fraunces', serif;
-  font-weight: 200;
+  font-weight: 300;
   font-style: italic;
-  color: var(--accent);
+  color: #f0c040;
   display: block;
 }
 
-.hero-title .line-outline {
-  -webkit-text-stroke: 1px rgba(238,240,248,0.25);
+h1 .outline {
+  -webkit-text-stroke: 1px rgba(238,240,248,0.2);
   color: transparent;
   display: block;
 }
 
-.hero-sub {
-  font-size: 1rem;
-  color: var(--muted);
-  max-width: 520px;
-  line-height: 1.7;
-  margin-bottom: 3rem;
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-style: italic;
-  animation: fadeUp 0.6s ease 0.2s both;
-}
-
-.hero-sub strong {
-  color: var(--text);
-  font-style: normal;
-  font-weight: 300;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  animation: fadeUp 0.6s ease 0.3s both;
-  margin-bottom: 5rem;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 0.9rem 2rem;
-  border-radius: 3px;
+.sub {
   font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  font-size: 15px;
+  color: #6b7394;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  max-width: 420px;
 }
 
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(240,192,64,0.3); }
+.sub strong { color: #38d9b4; font-weight: 400; }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--muted);
-  padding: 0.9rem 2rem;
-  border-radius: 3px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
-
-/* =================== URL INPUT DEMO =================== */
-.url-demo {
-  width: 100%;
-  max-width: 640px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  animation: fadeUp 0.6s ease 0.4s both;
+/* Right panel */
+.right {
+  width: 320px;
+  flex-shrink: 0;
   position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.url-bar {
+.region-pill {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border);
-  gap: 0.7rem;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  border-left: 3px solid;
 }
 
-.url-dots { display: flex; gap: 0.4rem; }
-.url-dots span { width: 9px; height: 9px; border-radius: 50%; }
-.url-dots .d1 { background: #e05060; }
-.url-dots .d2 { background: #f0c040; }
-.url-dots .d3 { background: #38d9b4; }
+.region-pill.mx { background: rgba(56,217,180,0.08); border-color: #38d9b4; color: #38d9b4; }
+.region-pill.es { background: rgba(240,192,64,0.08); border-color: #f0c040; color: #f0c040; }
+.region-pill.us { background: rgba(74,128,245,0.08); border-color: #4a80f5; color: #4a80f5; }
+.region-pill.br { background: rgba(224,80,96,0.08); border-color: #e05060; color: #e05060; }
+.region-pill.de { background: rgba(180,140,255,0.08); border-color: #b48cff; color: #b48cff; }
 
-.url-input-fake {
+.flag { font-size: 20px; }
+
+.stat-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.stat-pill {
   flex: 1;
   background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0.35rem 0.8rem;
-  font-size: 0.65rem;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-}
-
-.url-input-fake .url-accent { color: var(--accent2); }
-
-.scan-btn-fake {
-  background: var(--accent);
-  color: var(--bg);
-  padding: 0.35rem 1rem;
-  border-radius: 3px;
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  white-space: nowrap;
-  transition: opacity 0.2s;
-}
-
-.url-body {
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: 1fr 60px 1fr;
-  gap: 1rem;
-  align-items: center;
-}
-
-.text-col { display: flex; flex-direction: column; gap: 0.5rem; }
-.col-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
-
-.fake-line {
-  height: 7px;
+  border: 1px solid rgba(255,255,255,0.07);
   border-radius: 4px;
-  background: rgba(255,255,255,0.08);
-  animation: textShimmer 2s ease-in-out infinite;
-}
-
-.fake-line.w100 { width: 100%; }
-.fake-line.w80 { width: 80%; }
-.fake-line.w90 { width: 90%; }
-.fake-line.w60 { width: 60%; }
-.fake-line.w70 { width: 70%; }
-
-.fake-line.t { background: rgba(56,217,180,0.4); animation-delay: 0.2s; }
-.fake-line.a { background: rgba(240,192,64,0.4); animation-delay: 0.4s; }
-.fake-line.r { background: rgba(74,128,245,0.4); animation-delay: 0.6s; }
-
-@keyframes textShimmer {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-.center-arrow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.ai-badge {
-  font-size: 0.5rem;
-  letter-spacing: 0.2em;
-  background: var(--accent);
-  color: var(--bg);
-  padding: 0.2rem 0.5rem;
-  border-radius: 2px;
-  text-transform: uppercase;
-}
-
-.region-list { display: flex; flex-direction: column; gap: 0.5rem; }
-
-.region-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 0.7rem;
-  border-radius: 3px;
-  font-size: 0.6rem;
-  letter-spacing: 0.05em;
-  border-left: 2px solid;
-}
-
-.region-item.mx { background: rgba(56,217,180,0.07); border-color: var(--accent2); color: var(--accent2); }
-.region-item.br { background: rgba(240,192,64,0.07); border-color: var(--accent); color: var(--accent); }
-.region-item.us { background: rgba(74,128,245,0.07); border-color: var(--blue); color: var(--blue); }
-
-.scan-line {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  animation: scanAcross 2.5s linear infinite;
-  box-shadow: 0 0 10px var(--accent);
-}
-
-@keyframes scanAcross {
-  0% { top: 30px; opacity: 1; }
-  90% { top: 100%; opacity: 0.4; }
-  100% { top: 100%; opacity: 0; }
-}
-
-/* =================== MARQUEE =================== */
-.marquee-section {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  background: var(--bg2);
-}
-
-.marquee-track {
-  display: flex;
-  gap: 3rem;
-  animation: marquee 20s linear infinite;
-  width: max-content;
-}
-
-.marquee-item {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.marquee-item .flag { font-size: 1rem; }
-.marquee-sep { color: var(--accent); opacity: 0.4; }
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* =================== HOW IT WORKS =================== */
-.section {
-  padding: 7rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.section-label::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 1.5rem;
-}
-
-.section-title em {
-  font-family: 'Fraunces', serif;
-  font-weight: 200;
-  font-style: italic;
-  color: var(--accent);
-}
-
-.section-desc {
-  font-size: 0.9rem;
-  color: var(--muted);
-  max-width: 480px;
-  line-height: 1.8;
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-}
-
-/* Steps */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  margin-top: 4rem;
-  background: var(--border);
-}
-
-.step {
-  background: var(--bg);
-  padding: 2.5rem 2rem;
-  position: relative;
-  transition: background 0.3s;
-}
-
-.step:hover { background: var(--surface); }
-
-.step-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 4rem;
-  font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.08);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.step-icon {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.step-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  letter-spacing: -0.01em;
-}
-
-.step-desc {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.step-tag {
-  position: absolute;
-  top: 2.5rem;
-  right: 2rem;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  background: rgba(240,192,64,0.1);
-  color: var(--accent);
-  padding: 0.2rem 0.6rem;
-  border-radius: 2px;
-  border: 1px solid rgba(240,192,64,0.2);
-}
-
-/* =================== FEATURES =================== */
-.features-section {
-  padding: 0 4rem 7rem;
-}
-
-.features-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-  margin-top: 4rem;
-  background: var(--border);
-}
-
-.feat-card {
-  background: var(--bg);
-  padding: 2.5rem;
-  transition: background 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.feat-card:hover { background: var(--surface); }
-
-.feat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px;
-  height: 0;
-  background: var(--accent);
-  transition: height 0.4s ease;
-}
-
-.feat-card:hover::before { height: 100%; }
-
-.feat-icon { font-size: 1.5rem; margin-bottom: 1.2rem; display: block; }
-
-.feat-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-  letter-spacing: -0.01em;
-}
-
-.feat-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
-
-.feat-tag {
-  display: inline-block;
-  margin-top: 1.2rem;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  border: 1px solid rgba(56,217,180,0.2);
-  padding: 0.2rem 0.6rem;
-  border-radius: 2px;
-}
-
-/* =================== STATS =================== */
-.stats-section {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 5rem 4rem;
-}
-
-.stats-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-}
-
-.stat-card {
-  background: var(--surface);
-  padding: 2.5rem 2rem;
+  padding: 12px;
   text-align: center;
 }
 
-.stat-num {
+.stat-pill .n {
   font-family: 'Syne', sans-serif;
-  font-size: 3rem;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--accent);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* =================== REGIONS =================== */
-.regions-section {
-  padding: 7rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.regions-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 3px;
-  margin-top: 3rem;
-  background: var(--border);
-}
-
-.region-card {
-  background: var(--bg);
-  padding: 1.5rem 1.2rem;
-  text-align: center;
-  transition: background 0.2s;
-  cursor: default;
-}
-
-.region-card:hover { background: var(--surface2); }
-
-.region-card .emoji { font-size: 1.8rem; display: block; margin-bottom: 0.5rem; }
-.region-card .rname { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); }
-.region-card .rlang { font-size: 0.55rem; letter-spacing: 0.1em; color: var(--accent); margin-top: 0.2rem; }
-
-/* =================== TESTIMONIAL =================== */
-.testimonial-section {
-  padding: 0 4rem 7rem;
-}
-
-.testimonial-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonial-inner::before {
-  content: '❝';
-  position: absolute;
-  top: -1rem;
-  left: 3rem;
-  font-size: 10rem;
-  color: rgba(240,192,64,0.05);
-  font-family: serif;
-  line-height: 1;
-}
-
-.testimonial-quote {
-  font-family: 'Fraunces', serif;
-  font-size: 1.4rem;
-  font-weight: 200;
-  font-style: italic;
-  line-height: 1.6;
-  color: var(--text);
-}
-
-.testimonial-quote strong {
-  color: var(--accent);
-  font-weight: 300;
-  font-style: normal;
-}
-
-.testimonial-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.t-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.t-role { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
-
-.t-stat {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: var(--bg);
-  border-radius: 3px;
-  border: 1px solid var(--border);
-}
-
-.t-stat .big-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--accent2);
-  letter-spacing: -0.03em;
-}
-
-.t-stat .stat-desc { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
-
-/* =================== PRICING =================== */
-.pricing-section {
-  padding: 0 4rem 7rem;
-}
-
-.pricing-grid {
-  max-width: 1200px;
-  margin: 4rem auto 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  background: var(--border);
-}
-
-.price-card {
-  background: var(--bg);
-  padding: 2.5rem 2rem;
-  position: relative;
-  transition: background 0.3s;
-}
-
-.price-card:hover { background: var(--surface); }
-.price-card.featured { background: var(--surface2); }
-
-.price-badge {
-  position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: var(--bg);
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.25rem 1rem;
-  font-family: 'DM Mono', monospace;
-}
-
-.price-tier {
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-}
-
-.price-amount {
-  font-family: 'Syne', sans-serif;
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
-.price-amount span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-.price-period { font-size: 0.62rem; color: var(--muted); margin-bottom: 2rem; margin-top: 0.3rem; }
-
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  margin-bottom: 2rem;
-}
-
-.price-features li {
-  font-size: 0.7rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.price-features li::before {
-  content: '✓';
-  color: var(--accent2);
-  font-size: 0.7rem;
-}
-
-.price-btn {
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 3px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-}
-
-.price-btn:hover { border-color: rgba(255,255,255,0.2); }
-.price-btn.featured-btn { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-.price-btn.featured-btn:hover { opacity: 0.85; }
-
-/* =================== CTA FINAL =================== */
-.final-cta {
-  padding: 7rem 4rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.final-cta::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(240,192,64,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.final-cta .cta-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 800;
+  color: #f0c040;
   letter-spacing: -0.03em;
   line-height: 1;
-  margin-bottom: 1.5rem;
 }
 
-.final-cta .cta-title em {
-  font-family: 'Fraunces', serif;
-  font-weight: 200;
-  font-style: italic;
-  color: var(--accent);
-}
-
-.final-cta .cta-sub {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 3rem;
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-}
-
-.final-url-input {
-  display: flex;
-  max-width: 560px;
-  margin: 0 auto;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.final-url-input input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 1rem 1.2rem;
+.stat-pill .l {
   font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--text);
-  letter-spacing: 0.05em;
-}
-
-.final-url-input input::placeholder { color: var(--muted); }
-
-.final-url-input button {
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  padding: 1rem 1.8rem;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 9px;
+  color: #6b7394;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity 0.2s;
-  white-space: nowrap;
+  margin-top: 4px;
 }
 
-.final-url-input button:hover { opacity: 0.85; }
-
-/* =================== FOOTER =================== */
-footer {
-  padding: 2.5rem 4rem;
-  border-top: 1px solid var(--border);
+/* Bottom brand bar */
+.brand-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 54px;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
+  padding: 0 90px;
   justify-content: space-between;
+  z-index: 3;
 }
 
-.footer-logo {
+.brand-name {
   font-family: 'Syne', sans-serif;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 800;
+  color: #eef0f8;
   letter-spacing: -0.02em;
 }
 
-.footer-logo span { color: var(--accent); }
+.brand-name span { color: #f0c040; }
 
-.footer-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.footer-links a {
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.footer-copy {
-  font-size: 0.6rem;
-  color: var(--muted);
+.brand-url {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: #6b7394;
   letter-spacing: 0.1em;
 }
 
-/* =================== ANIMATIONS =================== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+.brand-cta {
+  background: #f0c040;
+  color: #060810;
+  padding: 8px 20px;
+  border-radius: 3px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 </style>
 </head>
 <body>
+<div class="card">
+  <div class="glow"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Lingua<span>Convert</span></div>
-  <ul class="nav-links">
-    <li><a href="#how">Cómo funciona</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Precios</a></li>
-  </ul>
-  <button class="nav-cta">Prueba gratis →</button>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">
-    <span class="pulse"></span>
-    IA de conversión regional · Ya disponible
+  <div class="left">
+    <div class="badge"><div class="dot"></div> IA de conversión regional</div>
+    <h1>
+      Tu negocio
+      <em>vendiendo</em>
+      <span class="outline">en todo el mundo</span>
+    </h1>
+    <p class="sub">
+      Escanea tu web y adapta cada palabra para <strong>resonar con cada cultura</strong>.<br>
+      Resultados en menos de 60 segundos.
+    </p>
   </div>
 
-  <h1 class="hero-title">
-    Tu landing page
-    <em class="line-italic">vendiendo</em>
-    <span class="line-outline">en todo el mundo</span>
-  </h1>
+  <div class="right">
+    <div class="region-pill mx"><span class="flag">🇲🇽</span> México · ES-MX adaptado</div>
+    <div class="region-pill es"><span class="flag">🇪🇸</span> España · ES-ES adaptado</div>
+    <div class="region-pill us"><span class="flag">🇺🇸</span> USA · EN-US optimizado</div>
+    <div class="region-pill br"><span class="flag">🇧🇷</span> Brasil · PT-BR convertido</div>
+    <div class="region-pill de"><span class="flag">🇩🇪</span> Alemania · DE localizado</div>
 
-  <p class="hero-sub">
-    Escaneamos tu sitio web y <strong>adaptamos cada palabra</strong> para resonar con el tono, cultura y lenguaje de ventas de cada región.
-  </p>
-
-  <div class="hero-actions">
-    <button class="btn-primary">⚡ Escanea tu web gratis</button>
-    <button class="btn-ghost">Ver demo en vivo</button>
-  </div>
-
-  <div class="url-demo">
-    <div class="scan-line"></div>
-    <div class="url-bar">
-      <div class="url-dots">
-        <span class="d1"></span>
-        <span class="d2"></span>
-        <span class="d3"></span>
-      </div>
-      <div class="url-input-fake">https://<span class="url-accent">tu-empresa.com</span>/landing</div>
-      <button class="scan-btn-fake">Escanear →</button>
-    </div>
-    <div class="url-body">
-      <div class="text-col">
-        <div class="col-label">📄 Copy original</div>
-        <div class="fake-line w100"></div>
-        <div class="fake-line w80"></div>
-        <div class="fake-line w90"></div>
-        <div class="fake-line w60"></div>
-        <div class="fake-line w75"></div>
-      </div>
-      <div class="center-arrow">
-        <div class="ai-badge">AI</div>
-        <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
-          <path d="M0 10 H26 M20 3 L28 10 L20 17" stroke="#f0c040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="region-list">
-        <div class="region-item mx">🇲🇽 México · ES-MX</div>
-        <div class="region-item br">🇧🇷 Brasil · PT-BR</div>
-        <div class="region-item us">🇺🇸 USA · EN-US</div>
-      </div>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="n">3×</div><div class="l">Conversiones</div></div>
+      <div class="stat-pill"><div class="n">50+</div><div class="l">Regiones</div></div>
+      <div class="stat-pill"><div class="n">60s</div><div class="l">Por escaneo</div></div>
     </div>
   </div>
-</section>
 
-<!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track">
-    <span class="marquee-item"><span class="flag">🇲🇽</span> México</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇧🇷</span> Brasil</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇺🇸</span> Estados Unidos</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇪🇸</span> España</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇨🇴</span> Colombia</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇦🇷</span> Argentina</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇨🇱</span> Chile</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇵🇪</span> Perú</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇩🇪</span> Alemania</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇫🇷</span> Francia</span><span class="marquee-sep">✦</span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item"><span class="flag">🇲🇽</span> México</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇧🇷</span> Brasil</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇺🇸</span> Estados Unidos</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇪🇸</span> España</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇨🇴</span> Colombia</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇦🇷</span> Argentina</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇨🇱</span> Chile</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇵🇪</span> Perú</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇩🇪</span> Alemania</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item"><span class="flag">🇫🇷</span> Francia</span><span class="marquee-sep">✦</span>
+  <div class="brand-bar">
+    <div class="brand-name">Lingua<span>Convert</span></div>
+    <div class="brand-url">linguaconvert.ai</div>
+    <div class="brand-cta">⚡ Prueba gratis</div>
   </div>
 </div>
-
-<!-- HOW IT WORKS -->
-<section class="section" id="how">
-  <div class="section-label reveal">Proceso</div>
-  <h2 class="section-title reveal">Tres pasos hacia <em>ventas globales</em></h2>
-  <p class="section-desc reveal">Sin traducciones genéricas. Sin copiar y pegar. La IA entiende el contexto de cada mercado.</p>
-
-  <div class="steps reveal">
-    <div class="step">
-      <span class="step-num">01</span>
-      <span class="step-tag">Auto</span>
-      <span class="step-icon">🔍</span>
-      <div class="step-title">Pega tu URL</div>
-      <div class="step-desc">LinguaConvert escanea toda tu landing page: titulares, cuerpo, CTAs, beneficios y cualquier texto de venta. Nada se escapa.</div>
-    </div>
-    <div class="step">
-      <span class="step-num">02</span>
-      <span class="step-tag">IA</span>
-      <span class="step-icon">🧠</span>
-      <div class="step-title">Elige tus mercados</div>
-      <div class="step-desc">Selecciona las regiones destino. Nuestra IA adapta el tono, las expresiones idiomáticas y los argumentos de venta a cada cultura local.</div>
-    </div>
-    <div class="step">
-      <span class="step-num">03</span>
-      <span class="step-tag">Listo</span>
-      <span class="step-icon">🚀</span>
-      <div class="step-title">Exporta y publica</div>
-      <div class="step-desc">Recibe versiones listas para publicar. HTML, JSON o integración directa con tu CMS. Empieza a vender en minutos.</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-section">
-  <div class="stats-inner reveal">
-    <div class="stat-card">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">Regiones soportadas</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3×</div>
-      <div class="stat-label">Más conversiones</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">&lt;60s</div>
-      <div class="stat-label">Por escaneo</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">10K+</div>
-      <div class="stat-label">Sitios adaptados</div>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<section class="features-section" id="features">
-  <div style="max-width:1200px; margin: 7rem auto 0;">
-    <div class="section-label reveal">Features</div>
-    <h2 class="section-title reveal">Todo lo que necesitas para <em>vender local</em></h2>
-  </div>
-  <div class="features-grid reveal">
-    <div class="feat-card">
-      <span class="feat-icon">🌐</span>
-      <div class="feat-title">Adaptación cultural profunda</div>
-      <div class="feat-desc">No es solo traducción. La IA entiende qué argumentos de venta funcionan en cada país, qué palabras generan confianza y cómo varía el tono formal/informal por región.</div>
-      <span class="feat-tag">Cultural AI</span>
-    </div>
-    <div class="feat-card">
-      <span class="feat-icon">⚡</span>
-      <div class="feat-title">Escaneo completo en segundos</div>
-      <div class="feat-desc">Un solo link es suficiente. Detectamos automáticamente todos los bloques de texto, CTAs, headlines y microcopy. Cero trabajo manual de extracción.</div>
-      <span class="feat-tag">Auto-detect</span>
-    </div>
-    <div class="feat-card">
-      <span class="feat-icon">🎯</span>
-      <div class="feat-title">CTAs optimizados por mercado</div>
-      <div class="feat-desc">"Compra ahora" no funciona igual en México que en España o Colombia. Cada call-to-action se reescribe para maximizar clics en cada contexto cultural.</div>
-      <span class="feat-tag">CTA Engine</span>
-    </div>
-    <div class="feat-card">
-      <span class="feat-icon">🔌</span>
-      <div class="feat-title">Integración con tu CMS</div>
-      <div class="feat-desc">Exporta directamente a Webflow, WordPress, Shopify, Notion o cualquier plataforma vía API. También disponible en HTML, Markdown y JSON estructurado.</div>
-      <span class="feat-tag">API Ready</span>
-    </div>
-  </div>
-</section>
-
-<!-- REGIONS -->
-<section class="regions-section reveal">
-  <div class="section-label">Cobertura</div>
-  <h2 class="section-title">Tu mensaje en <em>cada rincón</em></h2>
-
-  <div class="regions-grid">
-    <div class="region-card"><span class="emoji">🇲🇽</span><div class="rname">México</div><div class="rlang">ES-MX</div></div>
-    <div class="region-card"><span class="emoji">🇧🇷</span><div class="rname">Brasil</div><div class="rlang">PT-BR</div></div>
-    <div class="region-card"><span class="emoji">🇺🇸</span><div class="rname">USA</div><div class="rlang">EN-US</div></div>
-    <div class="region-card"><span class="emoji">🇪🇸</span><div class="rname">España</div><div class="rlang">ES-ES</div></div>
-    <div class="region-card"><span class="emoji">🇦🇷</span><div class="rname">Argentina</div><div class="rlang">ES-AR</div></div>
-    <div class="region-card"><span class="emoji">🇨🇴</span><div class="rname">Colombia</div><div class="rlang">ES-CO</div></div>
-    <div class="region-card"><span class="emoji">🇩🇪</span><div class="rname">Alemania</div><div class="rlang">DE</div></div>
-    <div class="region-card"><span class="emoji">🇫🇷</span><div class="rname">Francia</div><div class="rlang">FR</div></div>
-    <div class="region-card"><span class="emoji">🇯🇵</span><div class="rname">Japón</div><div class="rlang">JA</div></div>
-    <div class="region-card"><span class="emoji">🇨🇳</span><div class="rname">China</div><div class="rlang">ZH</div></div>
-  </div>
-</section>
-
-<!-- TESTIMONIAL -->
-<section class="testimonial-section reveal">
-  <div class="testimonial-inner">
-    <div>
-      <p class="testimonial-quote">
-        "Teníamos la misma landing en toda Latinoamérica. Después de usar LinguaConvert, la versión para México convirtió <strong>2.8 veces más</strong> que la original. El lenguaje de ventas sí importa."
-      </p>
-    </div>
-    <div>
-      <div class="testimonial-meta">
-        <div class="t-name">Valentina Torres</div>
-        <div class="t-role">CMO · EcommerceLatam · Bogotá, Colombia</div>
-      </div>
-      <div class="t-stat">
-        <div class="big-num">+280%</div>
-        <div class="stat-desc">Incremento en conversiones en mercado MX en 30 días</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing-section" id="pricing">
-  <div style="max-width:1200px; margin: 0 auto;">
-    <div class="section-label reveal">Precios</div>
-    <h2 class="section-title reveal">Transparente y sin sorpresas</h2>
-  </div>
-  <div class="pricing-grid reveal">
-    <div class="price-card">
-      <div class="price-tier">Starter</div>
-      <div class="price-amount">$0<span>/mes</span></div>
-      <div class="price-period">Para empezar a explorar</div>
-      <ul class="price-features">
-        <li>3 escaneos por mes</li>
-        <li>5 regiones disponibles</li>
-        <li>Exportación HTML</li>
-        <li>Soporte por email</li>
-      </ul>
-      <button class="price-btn">Comenzar gratis</button>
-    </div>
-    <div class="price-card featured">
-      <div class="price-badge">Más popular</div>
-      <div class="price-tier">Pro</div>
-      <div class="price-amount">$49<span>/mes</span></div>
-      <div class="price-period">Para equipos de marketing</div>
-      <ul class="price-features">
-        <li>50 escaneos por mes</li>
-        <li>30+ regiones</li>
-        <li>API + CMS integrations</li>
-        <li>A/B testing por región</li>
-        <li>Soporte prioritario</li>
-      </ul>
-      <button class="price-btn featured-btn">Empezar con Pro →</button>
-    </div>
-    <div class="price-card">
-      <div class="price-tier">Enterprise</div>
-      <div class="price-amount">Custom</div>
-      <div class="price-period">Para grandes operaciones globales</div>
-      <ul class="price-features">
-        <li>Escaneos ilimitados</li>
-        <li>50+ regiones</li>
-        <li>Entrenamiento con tu brand voice</li>
-        <li>SLA garantizado</li>
-        <li>Cuenta manager dedicada</li>
-      </ul>
-      <button class="price-btn">Hablar con ventas</button>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta reveal">
-  <h2 class="cta-title">Tu texto.<br><em>Su idioma.</em><br>Más ventas.</h2>
-  <p class="cta-sub">Empieza gratis. Sin tarjeta de crédito. Resultados en 60 segundos.</p>
-  <div class="final-url-input">
-    <input type="text" placeholder="https://tu-empresa.com/landing">
-    <button>Escanear ahora →</button>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Lingua<span>Convert</span></div>
-  <ul class="footer-links">
-    <li><a href="#">Producto</a></li>
-    <li><a href="#">Docs</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">Contacto</a></li>
-  </ul>
-  <div class="footer-copy">© 2025 LinguaConvert AI</div>
-</footer>
-
-<script>
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-reveals.forEach(el => io.observe(el));
-
-// Scan button interaction
-document.querySelector('.scan-btn-fake').addEventListener('click', function() {
-  this.textContent = '⚡ Escaneando...';
-  setTimeout(() => { this.textContent = '✓ Listo!'; }, 1800);
-  setTimeout(() => { this.textContent = 'Escanear →'; }, 3500);
-});
-
-// Final URL button
-document.querySelector('.final-url-input button').addEventListener('click', function() {
-  const input = document.querySelector('.final-url-input input');
-  if (input.value) {
-    this.textContent = '⚡ Escaneando...';
-    setTimeout(() => { this.textContent = '✓ Listo — revisa tu email'; }, 2000);
-  } else {
-    input.focus();
-    input.placeholder = 'Ingresa tu URL primero...';
-  }
-});
-</script>
 </body>
 </html>
